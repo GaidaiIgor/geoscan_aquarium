@@ -3,7 +3,6 @@ import java.util.*;
 public class Core {
     public static List<Integer> waterDepth(List<Integer> cubesHeight) {
         List<Integer> waterDepth = new ArrayList<>(Collections.nCopies(cubesHeight.size(), 0));
-//        List<List<Integer>> solidPieces = splitBySinks(cubesHeight);
         List<List<Integer>> bounds = getLeftRightBounds(cubesHeight);
         for (int i = 0; i < cubesHeight.size(); ++i) {
             waterDepth.set(i, Math.min(bounds.get(0).get(i), bounds.get(1).get(i)) - cubesHeight.get(i));
@@ -37,18 +36,5 @@ public class Core {
             bounds.add(max);
         }
         return bounds;
-    }
-
-    private static List<List<Integer>> splitBySinks(List<Integer> cubesHeight) {
-        List<List<Integer>> solidPieces = new ArrayList<>();
-        solidPieces.add(new ArrayList<>());
-        for (Integer height : cubesHeight) {
-            if (height > 0) {
-                solidPieces.get(solidPieces.size() - 1).add(height);
-            } else {
-                solidPieces.add(new ArrayList<>());
-            }
-        }
-        return solidPieces;
     }
 }
