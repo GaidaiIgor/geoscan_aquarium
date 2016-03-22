@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * This class represents custom JFrame. This class allows its instances to be closed by pressing escape key.
+ * It also sets some common settings.
+ */
 public class CustomFrame extends JFrame {
     public CustomFrame(String title) {
         super(title);

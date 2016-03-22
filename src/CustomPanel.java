@@ -13,6 +13,10 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * This class represents custom GLJPanel. It allows to rotate and move the camera (see keyPressed method).
+ * It also loads some common scene resources.
+ */
 public class CustomPanel extends GLJPanel implements GLEventListener, KeyListener {
     private float rotateX;
     private float rotateY;
@@ -24,6 +28,7 @@ public class CustomPanel extends GLJPanel implements GLEventListener, KeyListene
     private float rotationStep = 15;
     private float scaleStep = 1;
     private float translationStep = 1;
+    // this variable stores amount of translation necessary to place scene at the center of the screen
     private float defaultXTranslation;
     private int groundTexture;
     private int waterTexture;
@@ -116,6 +121,13 @@ public class CustomPanel extends GLJPanel implements GLEventListener, KeyListene
 
     }
 
+    /**
+     * Available keys:
+     * A, D, W, S, Q, E to rotate the camera
+     * J, L, I, K, U, O to move the camera
+     * F, C to scale the scene
+     * R to restore initial view
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();

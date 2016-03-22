@@ -2,8 +2,12 @@ import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 
+/**
+ * This class is responsible for cube rendering
+ */
 public class Cube implements GLEventListener {
     public final static float size = 1;
+    // coordinates of this cube in grid
     private int xIndex;
     private int yIndex;
     private CustomPanel parent;
@@ -42,6 +46,7 @@ public class Cube implements GLEventListener {
         gl.glPopMatrix();
     }
 
+    // renders one side
     private void square(GL2 gl) {
         gl.glTranslatef(0, 0, size / 2);
         gl.glNormal3f(0, 0, 1);

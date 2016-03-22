@@ -6,9 +6,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This class represents rendered scene window
+ */
 public class DisplayScreen {
     private CustomPanel panel;
 
+
+    /** Initializes windows and shows it
+     * @param description land cubes description. i-th number is a height of i-th land column.
+     */
     public void start(String description) {
         List<Integer> ground = Arrays.stream(description.split(",")).map(String::trim).map(Integer::parseInt).collect(Collectors.toList());
         List<Integer> waterDepth = Core.waterDepth(ground);
@@ -29,6 +36,12 @@ public class DisplayScreen {
         panel.requestFocusInWindow();
     }
 
+    /**
+     * Forms cube objects corresponding to scene description
+     * @param ground land description
+     * @param water water description. i-th number means how many water cubes are located above land in i-th column
+     * @return Scene cubes
+     */
     private List<Cube> getCubes(List<Integer> ground, List<Integer> water) {
         List<Cube> cubes = new ArrayList<>();
         for (int i = 0; i < ground.size(); ++i) {
