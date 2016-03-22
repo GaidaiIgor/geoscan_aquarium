@@ -3,6 +3,7 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 
 public class Cube implements GLEventListener {
+    private final float size = 1;
     private float red;
     private float green;
     private float blue;
@@ -17,11 +18,9 @@ public class Cube implements GLEventListener {
         this.yIndex = yIndex;
     }
 
-//    public Cube(float red, float green, float blue) {
-//        this.red = red;
-//        this.green = green;
-//        this.blue = blue;
-//    }
+    public float getSize() {
+        return size;
+    }
 
     @Override
     public void init(GLAutoDrawable drawable) {
@@ -51,14 +50,14 @@ public class Cube implements GLEventListener {
 
     private void square(GL2 gl, float r, float g, float b) {
         gl.glColor3f(r, g, b);
-        gl.glTranslatef(0, 0, .5f);
+        gl.glTranslatef(0, 0, size / 2);
         gl.glNormal3f(0, 0, 1);
 
         gl.glBegin(GL2.GL_QUADS);
-        gl.glVertex2f(-.5f, -.5f);
-        gl.glVertex2f(.5f, -.5f);
-        gl.glVertex2f(.5f, .5f);
-        gl.glVertex2f(-.5f, .5f);
+        gl.glVertex2f(-size / 2, -size / 2);
+        gl.glVertex2f(size / 2, -size / 2);
+        gl.glVertex2f(size / 2, size / 2);
+        gl.glVertex2f(-size / 2, size / 2);
         gl.glEnd();
     }
 

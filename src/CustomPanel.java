@@ -10,19 +10,25 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class CustomPanel extends GLJPanel implements GLEventListener, KeyListener {
-    private float rotateX = 15;
-    private float rotateY = 15;
-    private float rotateZ = 0;
-    private float scale = 1;
-    private float translateX = 0;
-    private float translateY = 0;
-    private float translateZ = 0;
+    private float rotateX;
+    private float rotateY;
+    private float rotateZ;
+    private float scale;
+    private float translateX;
+    private float translateY;
+    private float translateZ;
     private float rotationStep = 15;
     private float scaleStep = 1;
     private float translationStep = 1;
+    private float defaultXTranslation;
 
     public CustomPanel(GLCapabilities capabilities) {
+        this(capabilities, 0);
+    }
+
+    public CustomPanel(GLCapabilities capabilities, float defaultXTranslation) {
         super(capabilities);
+        this.defaultXTranslation = defaultXTranslation;
         setPreferredSize(new Dimension(500, 500));
         addGLEventListener(this);
         addKeyListener(this);
@@ -35,7 +41,7 @@ public class CustomPanel extends GLJPanel implements GLEventListener, KeyListene
         rotateY = 15;
         rotateZ = 0;
         scale = 10;
-        translateX = 0;
+        translateX = defaultXTranslation;
         translateY = 0;
         translateZ = 0;
     }
@@ -90,9 +96,9 @@ public class CustomPanel extends GLJPanel implements GLEventListener, KeyListene
         } else if (key == KeyEvent.VK_D) {
             rotateY -= rotationStep;
         } else if (key == KeyEvent.VK_S) {
-            rotateX += rotationStep;
-        } else if (key == KeyEvent.VK_W) {
             rotateX -= rotationStep;
+        } else if (key == KeyEvent.VK_W) {
+            rotateX += rotationStep;
         } else if (key == KeyEvent.VK_E) {
             rotateZ -= rotationStep;
         } else if (key == KeyEvent.VK_Q) {
@@ -102,13 +108,13 @@ public class CustomPanel extends GLJPanel implements GLEventListener, KeyListene
         } else if (key == KeyEvent.VK_C) {
             scale += scaleStep;
         } else if (key == KeyEvent.VK_J) {
-            translateX -= translationStep;
-        } else if (key == KeyEvent.VK_L) {
             translateX += translationStep;
+        } else if (key == KeyEvent.VK_L) {
+            translateX -= translationStep;
         } else if (key == KeyEvent.VK_K) {
-            translateY -= translationStep;
-        } else if (key == KeyEvent.VK_I) {
             translateY += translationStep;
+        } else if (key == KeyEvent.VK_I) {
+            translateY -= translationStep;
         } else if (key == KeyEvent.VK_U) {
             translateZ -= translationStep;
         } else if (key == KeyEvent.VK_O) {
