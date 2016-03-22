@@ -3,23 +3,17 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 
 public class Cube implements GLEventListener {
-    private final float size = 1;
-    private float red;
-    private float green;
-    private float blue;
+    public final static float size = 1;
     private int xIndex;
     private int yIndex;
+    private CustomPanel parent;
+    private Type type;
 
-    public Cube(float red, float green, float blue, int xIndex, int yIndex) {
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
+    public Cube(CustomPanel parent, int xIndex, int yIndex, Type type) {
+        this.parent = parent;
         this.xIndex = xIndex;
         this.yIndex = yIndex;
-    }
-
-    public float getSize() {
-        return size;
+        this.type = type;
     }
 
     @Override
@@ -42,21 +36,30 @@ public class Cube implements GLEventListener {
         for (int i = 0; i < cube_sides; ++i) {
             gl.glPushMatrix();
             gl.glRotatef(rotations[i][0], rotations[i][1], rotations[i][2], rotations[i][3]);
-            square(gl, red, green, blue);
+            square(gl);
             gl.glPopMatrix();
         }
         gl.glPopMatrix();
     }
 
-    private void square(GL2 gl, float r, float g, float b) {
-        gl.glColor3f(r, g, b);
+    private void square(GL2 gl) {
         gl.glTranslatef(0, 0, size / 2);
         gl.glNormal3f(0, 0, 1);
 
+        if (type == Type.Ground) {
+            gl.glBindTexture(GL2.GL_TEXTURE_2D, parent.getGroundTexture());
+        } else if (type == Type.Water) {
+            gl.glBindTexture(GL2.GL_TEXTURE_2D, parent.getWaterTexture());
+        }
+
         gl.glBegin(GL2.GL_QUADS);
+        gl.glTexCoord2f(0, 0);
         gl.glVertex2f(-size / 2, -size / 2);
+        gl.glTexCoord2f(1, 0);
         gl.glVertex2f(size / 2, -size / 2);
+        gl.glTexCoord2f(1, 1);
         gl.glVertex2f(size / 2, size / 2);
+        gl.glTexCoord2f(0, 1);
         gl.glVertex2f(-size / 2, size / 2);
         gl.glEnd();
     }
@@ -64,4 +67,6 @@ public class Cube implements GLEventListener {
     @Override
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
     }
+
+    public enum Type {Ground, Water}
 }

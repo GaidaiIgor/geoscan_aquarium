@@ -3,11 +3,15 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLEventListener;
 import com.jogamp.opengl.awt.GLJPanel;
+import com.jogamp.opengl.util.texture.Texture;
+import com.jogamp.opengl.util.texture.TextureIO;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 
 public class CustomPanel extends GLJPanel implements GLEventListener, KeyListener {
     private float rotateX;
@@ -21,6 +25,8 @@ public class CustomPanel extends GLJPanel implements GLEventListener, KeyListene
     private float scaleStep = 1;
     private float translationStep = 1;
     private float defaultXTranslation;
+    private int groundTexture;
+    private int waterTexture;
 
     public CustomPanel(GLCapabilities capabilities) {
         this(capabilities, 0);
@@ -46,6 +52,14 @@ public class CustomPanel extends GLJPanel implements GLEventListener, KeyListene
         translateZ = 0;
     }
 
+    public int getGroundTexture() {
+        return groundTexture;
+    }
+
+    public int getWaterTexture() {
+        return waterTexture;
+    }
+
     @Override
     public void init(GLAutoDrawable glAutoDrawable) {
         GL2 gl = glAutoDrawable.getGL().getGL2();
@@ -53,6 +67,20 @@ public class CustomPanel extends GLJPanel implements GLEventListener, KeyListene
         gl.glEnable(GL2.GL_LIGHTING);
         gl.glEnable(GL2.GL_LIGHT0);
         gl.glEnable(GL2.GL_COLOR_MATERIAL);
+
+        gl.glEnable(GL2.GL_TEXTURE_2D);
+        try {
+            File groundTextureFile = new File("ground.jpg");
+            Texture ground = TextureIO.newTexture(groundTextureFile, true);
+            groundTexture = ground.getTextureObject(gl);
+
+            File waterTextureFile = new File("water.jpg");
+            Texture water = TextureIO.newTexture(waterTextureFile, true);
+            waterTexture = water.getTextureObject(gl);
+        }
+        catch (IOException e) {
+            System.err.println("Texture error: " + e.getMessage());
+        }
     }
 
     @Override

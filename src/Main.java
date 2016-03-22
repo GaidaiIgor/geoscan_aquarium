@@ -24,32 +24,5 @@ public class Main {
     public static void main(String[] args) {
         Application application = new Application();
         application.start();
-//        CustomFrame frame = new CustomFrame("Aquarium");
-//        JTextField input = new JTextField("4, 1, 3, 1, 2, 1, 3, 1, 2", 15);
-//        input.addKeyListener(new KeyListener() {
-//            @Override
-//            public void keyTyped(KeyEvent e) {
-//            }
-//
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//                int key = e.getKeyCode();
-//                if (key == KeyEvent.VK_ENTER) {
-//                    JTextField source = (JTextField) e.getSource();
-//                    showCubes(source.getText());
-//                }
-//            }
-//
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//            }
-//        });
-//        frame.getContentPane().add(input);
-//
-//        JButton run = new JButton("Run");
-//        frame.getContentPane().add(run);
-//
-//        frame.pack();
-//        input.requestFocusInWindow();
     }
 }
